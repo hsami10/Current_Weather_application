@@ -9,17 +9,24 @@ const readableLoc = location.replace('_', ' ');
 
 //make a get request to the API with your key and city
 const request = https.get(
-    `http://api.wunderground.com/api/${api.key}/conditions/q/${location}.json`, res => {
+    `https://api.wunderground.com/api/${api.key}/conditions/q/${location}.json`, res => {
         let body = '';
 
-        res.on('data', chunk => console.log(chunk));
+        res.on('data', chunk => {
+            body += chunk.toString();
+        });
 
         res.on('end', () => {
-            console.log(body);
+            //parse body string into json
+            const weather = JSON.parse(body);
+            //print relevent data to the console
+            const printString = `Current temperature in ${weather.current_observation.display_location.full} 
+            is ${weather.current_observation.temperature_string}, with winds ${weather.current_observation.wind_string}.`;
+            console.log(printString);
         });
     }
 );
 
-//call a print function to print out the information to the console.
+
 //handle any errors
 
