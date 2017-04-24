@@ -1,5 +1,6 @@
 //require all necessary files
-
+const https = require('https');
+const http = require('http');
 
 //get the city argument from the console
 //tailor the argument to match the required string format for API
