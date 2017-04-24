@@ -19,9 +19,8 @@ const request = https.get(
         res.on('end', () => {
             //parse body string into json
             const weather = JSON.parse(body);
-            //print relevent data to the console
-            const printString = `Current temperature in ${weather.current_observation.display_location.full} 
-            is ${weather.current_observation.temperature_string}, with winds ${weather.current_observation.wind_string}.`;
+            //print relevent data to the console. Wind string starts with 'From', so slice out F from string and print f.
+            const printString = `Current temperature in ${weather.current_observation.display_location.full} is ${weather.current_observation.temperature_string}, with winds f${weather.current_observation.wind_string.slice(1)}.`;
             console.log(printString);
         });
     }
