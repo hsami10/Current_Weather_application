@@ -14,6 +14,7 @@ function printError(e) {
 
 //function to print weather in sentence form
 function printWeather(weather) {
+    //Wind string starts with 'From', so slice out F from string and print f.
     const printString = `Current temperature in ${weather.current_observation.display_location.full} is ${weather.current_observation.temperature_string}, with winds f${weather.current_observation.wind_string.slice(1)}.`;
     console.log(printString);
 }
@@ -31,14 +32,18 @@ function getWeather() {
                     });
 
                     res.on('end', () => {
-                        //parse body string into json
-                        const weather = JSON.parse(body);
-                        //print relevent data to the console. Wind string starts with 'From', so slice out F from string and print f.
-                        if (weather.location) {
-                            printWeather(weather);
-                        } else {
-                            const locNotFound = new Error(`The location "${readableLoc}" was not found.`);
-                            printError(locNotFound);
+                        try {
+                            //parse body string into json
+                            const weather = JSON.parse(body);
+                            //print relevent data to the console. 
+                            if (weather.location) {
+                                printWeather(weather);
+                            } else {
+                                const locNotFound = new Error(`The location "${readableLoc}" was not found. Make sure a specific location is entered (eg. Cleveland OH).`);
+                                printError(locNotFound);
+                            }
+                        } catch (e) {
+                            printError(e);
                         }
                     });
                 } else {
