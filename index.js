@@ -36,7 +36,7 @@ function getWeather() {
                             //parse body string into json
                             const weather = JSON.parse(body);
                             //print relevent data to the console. 
-                            if (weather.location) {
+                            if (weather.current_observation.display_location) {
                                 printWeather(weather);
                             } else {
                                 const locNotFound = new Error(`The location "${readableLoc}" was not found. Make sure a specific location is entered (eg. Cleveland OH).`);
