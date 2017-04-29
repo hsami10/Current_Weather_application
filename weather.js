@@ -57,4 +57,4 @@ function getWeather(location) {
     }
 }
 
-module.exports = getWeather;
+module.exports.getWeather = getWeather;
