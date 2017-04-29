@@ -5,9 +5,6 @@ const https = require('https');
 const http = require('http');
 const api = require('./key.json');
 
-
-const readableLoc = location.replace('_', ' '); //create readable location string for error messages.
-
 //function to print error message
 function printError(e) {
     console.error(e.message);
@@ -22,6 +19,7 @@ function printWeather(weather) {
 
 //function to make a get request to the API with your key and city
 function getWeather(location) {
+    const readableLoc = location.replace('_', ' '); //create readable location string for error messages.
     try {
         const request = https.get(
             `https://api.wunderground.com/api/${api.key}/conditions/q/${location}.json`, (res) => {
@@ -60,5 +58,3 @@ function getWeather(location) {
 }
 
 module.exports = getWeather;
-
-getWeather();
